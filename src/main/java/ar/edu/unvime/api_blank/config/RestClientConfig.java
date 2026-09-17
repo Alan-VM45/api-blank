@@ -8,6 +8,11 @@ import org.springframework.web.client.RestClient;
 public class RestClientConfig {
 
     @Bean
+    RestClient.Builder restClientBuilder() {
+        return RestClient.builder();
+    }
+
+    @Bean
     RestClient dummyJsonClient(RestClient.Builder builder) {
         return builder.baseUrl("https://dummyjson.com").build();
     }
