@@ -22,7 +22,7 @@ import ar.edu.unvime.api_blank.favorito.service.FavoritoService;
 
 @RestController
 @RequestMapping("/api/favoritos")
-@Tag(name = "Favoritos", description = "Favoritos almacenados en memoria")
+@Tag(name = "Favoritos", description = "Favoritos gestionados dentro de listas")
 public class FavoritoController {
 
     private final FavoritoService service;

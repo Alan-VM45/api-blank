@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
 
 import ar.edu.unvime.api_blank.favorito.exception.FavoritoNotFoundException;
+import ar.edu.unvime.api_blank.lista.exception.ListaConFavoritosException;
+import ar.edu.unvime.api_blank.lista.exception.ListaNotFoundException;
 import ar.edu.unvime.api_blank.producto.exception.ExternalServiceException;
 
 @RestControllerAdvice
@@ -22,12 +24,27 @@ public class GlobalExceptionHandler {
         return error(HttpStatus.NOT_FOUND, exception.getMessage(), null);
     }
 
+    @ExceptionHandler(ListaNotFoundException.class)
+    public ResponseEntity<ApiError> listaNotFound(ListaNotFoundException exception) {
+        return error(HttpStatus.NOT_FOUND, exception.getMessage(), null);
+    }
+
+    @ExceptionHandler(ListaConFavoritosException.class)
+    public ResponseEntity<ApiError> listaConFavoritos(ListaConFavoritosException exception) {
+        return error(HttpStatus.CONFLICT, exception.getMessage(), null);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> validation(MethodArgumentNotValidException exception) {
         List<Map<String, String>> details = exception.getBindingResult().getFieldErrors().stream()
             .map(error -> Map.of("campo", error.getField(), "mensaje", error.getDefaultMessage()))
             .toList();
         return error(HttpStatus.BAD_REQUEST, "La solicitud contiene datos invalidos", details);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> invalidArgument(IllegalArgumentException exception) {
+        return error(HttpStatus.BAD_REQUEST, exception.getMessage(), null);
     }
 
     @ExceptionHandler(ExternalServiceException.class)

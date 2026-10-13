@@ -2,7 +2,6 @@ package ar.edu.unvime.api_blank.favorito.service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
 
@@ -11,23 +10,28 @@ import ar.edu.unvime.api_blank.favorito.dto.FavoritoRequest;
 import ar.edu.unvime.api_blank.favorito.dto.FavoritoResponse;
 import ar.edu.unvime.api_blank.favorito.exception.FavoritoNotFoundException;
 import ar.edu.unvime.api_blank.favorito.repository.FavoritoRepository;
+import ar.edu.unvime.api_blank.lista.exception.ListaNotFoundException;
+import ar.edu.unvime.api_blank.lista.repository.ListaRepository;
 
 @Service
 public class FavoritoService {
 
     private final FavoritoRepository repository;
-    private final AtomicLong nextId = new AtomicLong(1);
+    private final ListaRepository listaRepository;
 
-    public FavoritoService(FavoritoRepository repository) {
+    public FavoritoService(FavoritoRepository repository, ListaRepository listaRepository) {
         this.repository = repository;
+        this.listaRepository = listaRepository;
     }
 
     public FavoritoResponse crear(FavoritoRequest request) {
+        validarListaExiste(request.listaId());
         Favorito favorito = new Favorito(
-            nextId.getAndIncrement(),
+            null,
             request.productoId(),
             request.nota(),
-            Instant.now()
+            Instant.now(),
+            request.listaId()
         );
         return FavoritoResponse.from(repository.save(favorito));
     }
@@ -42,7 +46,8 @@ public class FavoritoService {
 
     public FavoritoResponse actualizar(Long id, FavoritoRequest request) {
         Favorito favorito = findOrThrow(id);
-        favorito.actualizar(request.productoId(), request.nota());
+        validarListaExiste(request.listaId());
+        favorito.actualizar(request.productoId(), request.nota(), request.listaId());
         return FavoritoResponse.from(repository.save(favorito));
     }
 
@@ -53,5 +58,11 @@ public class FavoritoService {
 
     private Favorito findOrThrow(Long id) {
         return repository.findById(id).orElseThrow(() -> new FavoritoNotFoundException(id));
+    }
+
+    private void validarListaExiste(Long listaId) {
+        if (!listaRepository.existsById(listaId)) {
+            throw new ListaNotFoundException(listaId);
+        }
     }
 }

@@ -12,6 +12,10 @@ public record FavoritoRequest(
 
     @NotBlank(message = "nota es obligatoria")
     @Size(max = 500, message = "nota no puede superar los 500 caracteres")
-    String nota
+    String nota,
+
+    @NotNull(message = "listaId es obligatorio")
+    @Positive(message = "listaId debe ser positivo")
+    Long listaId
 ) {
 }
