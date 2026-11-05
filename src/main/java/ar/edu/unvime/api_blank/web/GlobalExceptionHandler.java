@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
 
 import ar.edu.unvime.api_blank.favorito.exception.FavoritoNotFoundException;
+import ar.edu.unvime.api_blank.auth.exception.CredencialesInvalidasException;
 import ar.edu.unvime.api_blank.lista.exception.ListaConFavoritosException;
 import ar.edu.unvime.api_blank.lista.exception.ListaNotFoundException;
 import ar.edu.unvime.api_blank.producto.exception.ExternalServiceException;
@@ -38,6 +39,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmailYaRegistradoException.class)
     public ResponseEntity<ApiError> emailYaRegistrado(EmailYaRegistradoException exception) {
         return error(HttpStatus.CONFLICT, exception.getMessage(), null);
+    }
+
+    @ExceptionHandler(CredencialesInvalidasException.class)
+    public ResponseEntity<ApiError> credencialesInvalidas(CredencialesInvalidasException exception) {
+        return error(HttpStatus.UNAUTHORIZED, exception.getMessage(), null);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
