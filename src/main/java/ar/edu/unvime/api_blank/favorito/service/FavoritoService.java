@@ -12,16 +12,25 @@ import ar.edu.unvime.api_blank.favorito.exception.FavoritoNotFoundException;
 import ar.edu.unvime.api_blank.favorito.repository.FavoritoRepository;
 import ar.edu.unvime.api_blank.lista.exception.ListaNotFoundException;
 import ar.edu.unvime.api_blank.lista.repository.ListaRepository;
+import ar.edu.unvime.api_blank.security.AccesoDenegadoException;
+import ar.edu.unvime.api_blank.security.ContextoSeguridad;
+import ar.edu.unvime.api_blank.lista.domain.Lista;
 
 @Service
 public class FavoritoService {
 
     private final FavoritoRepository repository;
     private final ListaRepository listaRepository;
+    private final ContextoSeguridad contextoSeguridad;
 
-    public FavoritoService(FavoritoRepository repository, ListaRepository listaRepository) {
+    public FavoritoService(
+        FavoritoRepository repository,
+        ListaRepository listaRepository,
+        ContextoSeguridad contextoSeguridad
+    ) {
         this.repository = repository;
         this.listaRepository = listaRepository;
+        this.contextoSeguridad = contextoSeguridad;
     }
 
     public FavoritoResponse crear(FavoritoRequest request) {
@@ -37,7 +46,10 @@ public class FavoritoService {
     }
 
     public List<FavoritoResponse> listar() {
-        return repository.findAll().stream().map(FavoritoResponse::from).toList();
+        List<Favorito> favoritos = contextoSeguridad.esAdmin()
+            ? repository.findAll()
+            : repository.findByListaUsuarioId(contextoSeguridad.usuarioActualId());
+        return favoritos.stream().map(FavoritoResponse::from).toList();
     }
 
     public FavoritoResponse obtener(Long id) {
@@ -46,13 +58,14 @@ public class FavoritoService {
 
     public FavoritoResponse actualizar(Long id, FavoritoRequest request) {
         Favorito favorito = findOrThrow(id);
-        validarListaExiste(request.listaId());
+        validarListaPropiaOFallar(favorito.getListaId());
+        validarListaPropiaOFallar(request.listaId());
         favorito.actualizar(request.productoId(), request.nota(), request.listaId());
         return FavoritoResponse.from(repository.save(favorito));
     }
 
     public void eliminar(Long id) {
-        findOrThrow(id);
+        validarListaPropiaOFallar(findOrThrow(id).getListaId());
         repository.deleteById(id);
     }
 
@@ -61,8 +74,14 @@ public class FavoritoService {
     }
 
     private void validarListaExiste(Long listaId) {
-        if (!listaRepository.existsById(listaId)) {
-            throw new ListaNotFoundException(listaId);
+        validarListaPropiaOFallar(listaId);
+    }
+
+    private void validarListaPropiaOFallar(Long listaId) {
+        Lista lista = listaRepository.findById(listaId).orElseThrow(() -> new ListaNotFoundException(listaId));
+        if (!contextoSeguridad.esAdmin()
+            && !contextoSeguridad.usuarioActualId().equals(lista.getUsuarioId())) {
+            throw new AccesoDenegadoException();
         }
     }
 }

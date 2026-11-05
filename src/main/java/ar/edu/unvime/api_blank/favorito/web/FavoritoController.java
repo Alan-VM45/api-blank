@@ -16,13 +16,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import ar.edu.unvime.api_blank.favorito.dto.FavoritoRequest;
 import ar.edu.unvime.api_blank.favorito.dto.FavoritoResponse;
 import ar.edu.unvime.api_blank.favorito.service.FavoritoService;
 
 @RestController
 @RequestMapping("/api/favoritos")
-@Tag(name = "Favoritos", description = "Favoritos gestionados dentro de listas")
+@Tag(name = "Favoritos", description = "Requiere autenticación (JWT)")
+@SecurityRequirement(name = "bearerAuth")
 public class FavoritoController {
 
     private final FavoritoService service;

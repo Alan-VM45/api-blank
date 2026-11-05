@@ -6,14 +6,18 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.unvime.api_blank.lista.domain.Lista;
+import ar.edu.unvime.api_blank.usuario.repository.UsuarioJpaRepository;
+import ar.edu.unvime.api_blank.usuario.repository.UsuarioEntity;
 
 @Repository
 public class ListaRepositoryAdapter implements ListaRepository {
 
     private final ListaJpaRepository listaJpaRepository;
+    private final UsuarioJpaRepository usuarioJpaRepository;
 
-    public ListaRepositoryAdapter(ListaJpaRepository listaJpaRepository) {
+    public ListaRepositoryAdapter(ListaJpaRepository listaJpaRepository, UsuarioJpaRepository usuarioJpaRepository) {
         this.listaJpaRepository = listaJpaRepository;
+        this.usuarioJpaRepository = usuarioJpaRepository;
     }
 
     @Override
@@ -23,6 +27,9 @@ public class ListaRepositoryAdapter implements ListaRepository {
             : listaJpaRepository.findById(lista.getId()).orElse(new ListaEntity());
 
         entity.setNombre(lista.getNombre());
+        entity.setUsuario(lista.getUsuarioId() == null
+            ? null
+            : usuarioJpaRepository.getReferenceById(lista.getUsuarioId()));
         if (lista.getId() != null) {
             entity.setId(lista.getId());
         }
@@ -33,6 +40,13 @@ public class ListaRepositoryAdapter implements ListaRepository {
     @Override
     public List<Lista> findAll() {
         return listaJpaRepository.findAll().stream().map(ListaRepositoryAdapter::toDomain).toList();
+    }
+
+    @Override
+    public List<Lista> findByUsuarioId(Long usuarioId) {
+        return listaJpaRepository.findByUsuario_Id(usuarioId).stream()
+            .map(ListaRepositoryAdapter::toDomain)
+            .toList();
     }
 
     @Override
@@ -51,6 +65,7 @@ public class ListaRepositoryAdapter implements ListaRepository {
     }
 
     private static Lista toDomain(ListaEntity entity) {
-        return new Lista(entity.getId(), entity.getNombre());
+        UsuarioEntity usuario = entity.getUsuario();
+        return new Lista(entity.getId(), entity.getNombre(), usuario == null ? null : usuario.getId());
     }
 }

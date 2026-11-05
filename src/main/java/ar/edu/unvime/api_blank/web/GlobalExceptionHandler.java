@@ -17,6 +17,7 @@ import ar.edu.unvime.api_blank.lista.exception.ListaConFavoritosException;
 import ar.edu.unvime.api_blank.lista.exception.ListaNotFoundException;
 import ar.edu.unvime.api_blank.producto.exception.ExternalServiceException;
 import ar.edu.unvime.api_blank.usuario.exception.EmailYaRegistradoException;
+import ar.edu.unvime.api_blank.security.AccesoDenegadoException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -44,6 +45,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CredencialesInvalidasException.class)
     public ResponseEntity<ApiError> credencialesInvalidas(CredencialesInvalidasException exception) {
         return error(HttpStatus.UNAUTHORIZED, exception.getMessage(), null);
+    }
+
+    @ExceptionHandler(AccesoDenegadoException.class)
+    public ResponseEntity<ApiError> accesoDenegado(AccesoDenegadoException exception) {
+        return error(HttpStatus.FORBIDDEN, exception.getMessage(), null);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

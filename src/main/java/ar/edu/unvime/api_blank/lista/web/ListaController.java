@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import ar.edu.unvime.api_blank.favorito.domain.Favorito;
 import ar.edu.unvime.api_blank.favorito.dto.FavoritoResponse;
@@ -24,7 +25,8 @@ import ar.edu.unvime.api_blank.lista.service.ListaService;
 
 @RestController
 @RequestMapping("/api/listas")
-@Tag(name = "Listas", description = "Agrupación de favoritos")
+@Tag(name = "Listas", description = "Requiere autenticación (JWT)")
+@SecurityRequirement(name = "bearerAuth")
 public class ListaController {
 
     private final ListaService service;

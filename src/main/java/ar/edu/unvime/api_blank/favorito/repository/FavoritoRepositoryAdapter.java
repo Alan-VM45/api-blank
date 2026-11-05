@@ -62,6 +62,13 @@ public class FavoritoRepositoryAdapter implements FavoritoRepository {
         return favoritoJpaRepository.findByListaId(listaId).stream().map(FavoritoRepositoryAdapter::toDomain).toList();
     }
 
+    @Override
+    public List<Favorito> findByListaUsuarioId(Long usuarioId) {
+        return favoritoJpaRepository.findByListaUsuarioId(usuarioId).stream()
+            .map(FavoritoRepositoryAdapter::toDomain)
+            .toList();
+    }
+
     private static Favorito toDomain(FavoritoEntity entity) {
         return new Favorito(
             entity.getId(),

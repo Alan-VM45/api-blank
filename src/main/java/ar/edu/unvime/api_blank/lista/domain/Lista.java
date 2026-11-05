@@ -4,10 +4,16 @@ public class Lista {
 
     private Long id;
     private String nombre;
+    private Long usuarioId;
 
     public Lista(Long id, String nombre) {
+        this(id, nombre, null);
+    }
+
+    public Lista(Long id, String nombre, Long usuarioId) {
         this.id = id;
         this.nombre = nombre;
+        this.usuarioId = usuarioId;
     }
 
     public Long getId() {
@@ -16,6 +22,10 @@ public class Lista {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
     public void setNombre(String nombre) {
