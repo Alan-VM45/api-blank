@@ -1,0 +1,12 @@
+HTTP/1.1 403 
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Thu, 05 Nov 2026 16:09:06 GMT
+
+{"timestamp":"2026-11-05T16:09:06.276505500Z","status":403,"error":"Forbidden","message":"No tiene permisos para acceder a este recurso","details":null}

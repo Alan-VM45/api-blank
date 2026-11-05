@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: api-blank
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        fromDatabase:
+          name: api-blank-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: api-blank-db
+          property: password
+      - key: JWT_SECRETO
+        generateValue: true
+
+databases:
+  - name: api-blank-db
+    plan: free
+    databaseName: api_blank
+    user: api_blank
