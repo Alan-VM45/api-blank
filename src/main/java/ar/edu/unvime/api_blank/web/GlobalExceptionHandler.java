@@ -15,6 +15,7 @@ import ar.edu.unvime.api_blank.favorito.exception.FavoritoNotFoundException;
 import ar.edu.unvime.api_blank.lista.exception.ListaConFavoritosException;
 import ar.edu.unvime.api_blank.lista.exception.ListaNotFoundException;
 import ar.edu.unvime.api_blank.producto.exception.ExternalServiceException;
+import ar.edu.unvime.api_blank.usuario.exception.EmailYaRegistradoException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -31,6 +32,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ListaConFavoritosException.class)
     public ResponseEntity<ApiError> listaConFavoritos(ListaConFavoritosException exception) {
+        return error(HttpStatus.CONFLICT, exception.getMessage(), null);
+    }
+
+    @ExceptionHandler(EmailYaRegistradoException.class)
+    public ResponseEntity<ApiError> emailYaRegistrado(EmailYaRegistradoException exception) {
         return error(HttpStatus.CONFLICT, exception.getMessage(), null);
     }
 
