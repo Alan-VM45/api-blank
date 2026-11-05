@@ -51,7 +51,7 @@ class ListaControllerIT extends IntegracionBase {
 
         // Actuar / Verificar
         mockMvc.perform(get("/api/listas/{id}", listaAjena).header("Authorization", "Bearer " + tokenB))
-            .andExpect(status().isOk());
+            .andExpect(status().isForbidden());
     }
 
     @Test
