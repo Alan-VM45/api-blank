@@ -1,13 +1,22 @@
-HTTP/1.1 201 
-Location: http://localhost:8080/api/listas/4
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 0
-Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-Pragma: no-cache
-Expires: 0
-X-Frame-Options: DENY
+HTTP/1.1 201 Created
+Date: Fri, 06 Nov 2026 03:31:18 GMT
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Thu, 05 Nov 2026 16:09:05 GMT
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+expires: 0
+location: https://api-blank-lbnp.onrender.com/api/listas/2
+pragma: no-cache
+rndr-id: 694c9a7c-1700-415d
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Accept-Encoding
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-render-origin-server: Render
+x-xss-protection: 0
+cf-cache-status: DYNAMIC
+CF-RAY: a561064279f9c084-EZE
+alt-svc: h3=":443"; ma=86400
 
-{"id":4,"nombre":"Lista-2f0aa9bf","usuarioId":1}
+{"id":2,"nombre":"Lista-4cecd98b","usuarioId":1}

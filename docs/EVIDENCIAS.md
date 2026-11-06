@@ -1,14 +1,18 @@
 # Evidencias de entrega TP3
 
-- [x] `.\mvnw.cmd clean verify` en verde: guardar captura en `docs/evidencias/` y conservar [mvn-clean-verify.txt](./evidencias/mvn-clean-verify.txt).
-- [ ] Reporte JaCoCo: captura de `target/site/jacoco/index.html`.
-- [x] Link a la corrida verde de GitHub Actions: https://github.com/Alan-VM45/api-blank/actions/runs/42068065426
-- [x] CI en rojo (test roto a propósito): https://github.com/Alan-VM45/api-blank/actions/runs/42064875587 — captura: [ci-rojo.png](./evidencias/ci-rojo.png)
-      CI en verde (revert): https://github.com/Alan-VM45/api-blank/actions/runs/42068065426 — captura: [ci-verde.png](./evidencias/ci-verde.png)
-- [ ] Logs de Render con Flyway V1–V6 y el mensaje **Your service is live**.
-- [ ] URL pública: **[completar]** y captura de `GET /health` con HTTP 200.
-- [ ] Capturas desde la URL pública: `GET /api/listas` con HTTP 401 sin token y HTTP 200 con token.
-- [ ] Capturas de una lista ajena con HTTP 403 y de un acceso `ADMIN` con HTTP 200.
-- [ ] Captura de Swagger con los endpoints de autenticación y el candado en listas/favoritos.
+- [x] `.\mvnw.cmd clean verify` en verde: salida [mvn-clean-verify.txt](./evidencias/mvn-clean-verify.txt) y captura del CI en verde [ci-verde.png](./evidencias/ci-verde.png).
+- [ ] Reporte JaCoCo: falta la captura de `target/site/jacoco/index.html`.
+- [x] Link a la corrida verde de GitHub Actions: https://github.com/Alan-VM45/api-blank/actions/runs/42068065426 — captura [ci-verde.png](./evidencias/ci-verde.png).
+- [x] Captura de CI en rojo (test roto a propósito) y luego en verde (revert): [ci-rojo.png](./evidencias/ci-rojo.png), [ci-verde.png](./evidencias/ci-verde.png). Corridas: [roja](https://github.com/Alan-VM45/api-blank/actions/runs/42064875587), [verde](https://github.com/Alan-VM45/api-blank/actions/runs/42068065426).
+- [x] Logs de Render con Flyway V1–V6 y "Your service is live": [render-flyway.png](./evidencias/render-flyway.png), [render_live.png](./evidencias/render_live.png).
+- [x] URL pública https://api-blank-lbnp.onrender.com + `GET /health` 200: captura [api-blank_health.png](./evidencias/api-blank_health.png) y respuesta [01-health.txt](./evidencias/01-health.txt).
+- [x] `GET /api/listas` 401 sin token y 200 con token (desde URL pública): [02-listas-sin-token-401.txt](./evidencias/02-listas-sin-token-401.txt), [06-listas-con-token-200.txt](./evidencias/06-listas-con-token-200.txt).
+- [ ] Lista ajena 403 / ADMIN 200: evidencia parcial de lista ajena [07-lista-ajena-403.txt](./evidencias/07-lista-ajena-403.txt); falta la evidencia del acceso ADMIN 200.
+- [x] Swagger con endpoints de autenticación y candado en listas/favoritos: [swagger.png](./evidencias/swagger.png).
 
-Guardar las capturas en `docs/evidencias/*.png`.
+## Respuestas de la API pública
+
+- Registro 201: [03-registro-201.txt](./evidencias/03-registro-201.txt).
+- Login 200 (token redactado): [04-login-200.txt](./evidencias/04-login-200.txt).
+- Crear lista 201: [05-crear-lista-201.txt](./evidencias/05-crear-lista-201.txt).
+- Login inválido 401: [08-login-invalido-401.txt](./evidencias/08-login-invalido-401.txt).

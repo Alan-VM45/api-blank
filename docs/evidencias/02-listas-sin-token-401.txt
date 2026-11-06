@@ -1,12 +1,21 @@
-HTTP/1.1 401 
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 0
-Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-Pragma: no-cache
-Expires: 0
-X-Frame-Options: DENY
+HTTP/1.1 401 Unauthorized
+Date: Fri, 06 Nov 2026 03:31:09 GMT
 Content-Type: application/json;charset=UTF-8
-Content-Length: 140
-Date: Thu, 05 Nov 2026 16:09:03 GMT
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+cf-cache-status: DYNAMIC
+expires: 0
+pragma: no-cache
+rndr-id: 218454c1-469f-4559
+Server: cloudflare
+strict-transport-security: max-age=31536000 ; includeSubDomains
+vary: Accept-Encoding
+x-content-type-options: nosniff
+x-frame-options: DENY
+x-render-origin-server: Render
+x-xss-protection: 0
+CF-RAY: a56106113ce45777-EZE
+alt-svc: h3=":443"; ma=86400
 
-{"timestamp":"2026-11-05T16:09:03.465950400Z","status":401,"error":"Unauthorized","message":"Autenticaci&oacute;n requerida","details":null}
+{"timestamp":"2026-11-06T03:31:09.763794374Z","status":401,"error":"Unauthorized","message":"Autenticaci&oacute;n requerida","details":null}

@@ -194,7 +194,7 @@ En GitHub, abrí **Actions → CI → Compilar y probar**. El workflow ejecuta:
 2. Pruebas unitarias (`test`).
 3. Pruebas de integración y cobertura (`verify`).
 
-El workflow agrega el resumen de cobertura de líneas y el artefacto `reporte-de-cobertura`. Para repetir una corrida, usá **Re-run jobs** en la ejecución de Actions. Corrida verde: **[pegar link a la ejecución de Actions]**.
+El workflow agrega el resumen de cobertura de líneas y el artefacto `reporte-de-cobertura`. Para repetir una corrida, usá **Re-run jobs** en la ejecución de Actions. Corrida verde: https://github.com/Alan-VM45/api-blank/actions/runs/42068065426 (prueba en rojo de la consigna 6.2: https://github.com/Alan-VM45/api-blank/actions/runs/42064875587).
 
 ### Despliegue en Render
 
@@ -203,7 +203,12 @@ El workflow agrega el resumen de cobertura de líneas y el artefacto `reporte-de
 3. Dejá que Flyway aplique las migraciones V1–V6 y revisá los logs hasta ver **Your service is live**.
 4. Verificá `GET /health` y la autenticación usando la URL pública.
 
-URL pública: **[completar luego del alta en Render]**. Corrida verde de Actions: **[pegar link]**.
+URL pública: https://api-blank-lbnp.onrender.com
+
+- Swagger: https://api-blank-lbnp.onrender.com/swagger-ui/index.html
+- Health: https://api-blank-lbnp.onrender.com/health
+
+Corrida verde de Actions: https://github.com/Alan-VM45/api-blank/actions/runs/42068065426 (prueba en rojo de la consigna 6.2: https://github.com/Alan-VM45/api-blank/actions/runs/42064875587).
 
 ### Swagger
 
